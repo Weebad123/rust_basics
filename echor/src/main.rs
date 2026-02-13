@@ -30,7 +30,7 @@ fn main() {
             Arg::new("omit_newline")
                 .short('n')// This turns it into a FLAG/OPTION
                 .help("This flag omits a newline")
-                .action(ArgAction::SetFalse)
+                .action(ArgAction::SetTrue)
                 .required(false)
         )
         .arg(
@@ -46,7 +46,7 @@ fn main() {
 
 
     // Print the matches
-    println!("{:#?}", details);
+    //println!("{:#?}", details);
 
     // Creating the Output
     //@dev Redirect to STDOUT for non-error, and errors get redirected to STDERR
@@ -66,9 +66,13 @@ fn main() {
         .collect();
 
     let omit_newline = details.get_flag("omit_newline");
-    let add_line = if omit_newline {" "} else { "\n" };
+    //let add_line = if omit_newline {" "} else { "\n" };
     let final_values = raw_values.join(" ");
-    println!("{}{}", final_values, add_line);
+    if omit_newline {
+        print!("{final_values}");
+    } else {
+        println!("{final_values}");
+    }
         
 
 }
